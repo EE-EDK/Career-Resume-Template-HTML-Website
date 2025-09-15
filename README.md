@@ -1,38 +1,32 @@
-# **Animated HTML Resume & GitHub Pages Hosting**
+# **Professional & Animated HTML Resume Template**
 
-This repository contains an animated HTML/CSS resume template. Below are the combined instructions for customizing the template with your information and publishing it as a live website using GitHub Pages.
+This repository contains a professional, animated, and highly customizable HTML resume template. It is designed to be a single `index.html` file that you can easily edit and host for free using GitHub Pages.
 
-See the Template here for example ->  https://ee-edk.github.io/Career-Resume-Template-HTML-Website/
+**Live Demo:** [Click here to see the template in action](https://ee-edk.github.io/Career-Resume-Template-HTML-Website/)
 
-## **Section 1: How to Customize Your Resume Template**
+## **Features**
 
-You must replace all placeholder text marked with \[brackets\] with your own information.
+*   **Modern Design:** A clean, professional layout that looks great on all devices.
+*   **Smooth Animations:** Subtle animations that engage visitors as they scroll.
+*   **Themeable:** Easily change the accent color to match your personal brand with the built-in theme switcher.
+*   **Highly Customizable:** Includes optional sections for projects, publications, languages, and more.
+*   **Print-Friendly:** Prints a clean, professional-looking PDF version of your resume.
 
-### **Step-by-Step Customization**
+---
 
-1. **Header:** Locate the \<header class="header"\> section. Update placeholders for your name, professional title, location, phone, email, and LinkedIn URL.  
-2. **Professional Summary:** Find the \<div class="summary-content"\>. Write 3-4 compelling sentences about yourself, making sure to include your years of experience and key achievements (using numbers when possible).  
-3. **Core Competencies:** In the competencies-grid section, replace the four \[Skill Category X\] headings with your main skill areas (e.g., Technical Skills, Leadership, Project Management). List 4-5 specific skills under each category.  
-4. **Professional Experience:**  
-   * Update your job information, including \[Company Name\], \[Your Job Title\], and employment dates (e.g., "Jan 2020 \- Dec 2023").  
-   * Replace each \[Achievement description\] with specific accomplishments. Use action verbs (like Led, Managed, or Increased) and include numbers or percentages whenever you can.  
-5. **Education:** In the education-grid section, update your \[Degree Name\], school name, and location.  
-6. **Technical Expertise:** Find the tech-grid section. Update the \[Skill Category\] (e.g., "Programming Languages") and list specific skills. Update the percentage (XX%) to reflect your comfort level (e.g., 70-80% for proficient, 90-95% for expert).
+## **How to Use This Template**
 
-### **Adding or Removing Sections**
+There are two main parts to using this template: customizing it with your information and publishing it online.
 
-* **To Add More Jobs:** Copy an entire \<div class="experience-item"\> block and paste it below the existing one. Then, fill in the new job details. Use the same method for adding more degrees.  
-* **To Remove Sections:** To delete optional sections like "Military Service" or "Honors & Awards", find the section starting with \<section class="section" and delete everything from that opening tag to its matching closing \</section\> tag.
+### **1. Customizing Your Resume**
 
-### **Saving Your File**
+All the instructions for editing the content, enabling optional sections, and changing the appearance are in the detailed guide below:
 
-When you are finished customizing, save the file as resume.html. You can open this file in any web browser to see your changes and use the "Download PDF" button to print or save a PDF version.
+**➡️ [Click here for the full Customization Guide](./HOW_TO.md)**
 
-**Important:** For the next steps (hosting), you will need to **rename this file.**
+### **2. Hosting on GitHub Pages**
 
-## **Section 2: How to Host Your Resume on GitHub Pages**
-
-Follow these steps to publish your newly customized resume as a live website.
+Once your resume is customized, follow these steps to publish it as a live website.
 
 ### **Step 1: Sign Up for GitHub**
 

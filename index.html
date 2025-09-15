@@ -3,10 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CHANGE THIS: Update the title with your name -->
+    <!-- CHANGE THIS: Update the title with your name and profession -->
     <title>[YOUR NAME] - [YOUR PROFESSION/TITLE]</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+        /* --- THEME AND COLOR VARIABLES --- */
+        :root {
+            --primary-text: #2c3e50;
+            --secondary-text: #34495e;
+            --primary-bg: #f5f6f7;
+            --secondary-bg: #fafbfc;
+            --header-bg-start: #1e2c4c;
+            --header-bg-end: #2c3e5f;
+            --accent-color: #c41e3a;
+            --accent-color-hover: #a3182f;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0,0,0,0.08);
+        }
+
+        /* --- FONT AND BASE STYLES --- */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
@@ -18,18 +33,19 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #2c3e50;
-            background: #f5f6f7;
+            color: var(--primary-text);
+            background: var(--primary-bg);
             padding: 0;
             margin: 0;
             font-size: 16px;
         }
         
+        /* --- RESUME CONTAINER --- */
         .resume-container {
             max-width: 900px;
             margin: 30px auto;
             background: white;
-            box-shadow: 0 0 40px rgba(0,0,0,0.08);
+            box-shadow: 0 0 40px var(--shadow-color);
             position: relative;
             border-radius: 8px;
             overflow: hidden;
@@ -42,12 +58,12 @@
             top: 0;
             bottom: 0;
             width: 5px;
-            background: linear-gradient(180deg, #c41e3a 0%, #c41e3a 40%, #1e2c4c 60%, #1e2c4c 100%);
+            background: linear-gradient(180deg, var(--accent-color) 0%, var(--accent-color) 40%, var(--header-bg-start) 60%, var(--header-bg-start) 100%);
         }
         
-        /* Header Section */
+        /* --- HEADER SECTION --- */
         .header {
-            background: linear-gradient(135deg, #1e2c4c 0%, #2c3e5f 100%);
+            background: linear-gradient(135deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
             color: white;
             padding: 45px 50px 40px;
             position: relative;
@@ -90,8 +106,14 @@
             text-transform: uppercase;
         }
 
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
         .download-btn {
-            background-color: #c41e3a;
+            background-color: var(--accent-color);
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
@@ -103,49 +125,86 @@
         }
 
         .download-btn:hover {
-            background-color: #a3182f;
+            background-color: var(--accent-color-hover);
             transform: translateY(-2px);
         }
         
         .contact-info {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px 25px; /* row-gap and column-gap */
             font-size: 16px;
+            margin-top: 10px;
         }
         
         .contact-info span {
             display: flex;
             align-items: center;
-            opacity: 0.9;
         }
         
         .contact-info a {
             color: white;
             text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s;
+            opacity: 0.9;
+            transition: opacity 0.3s, text-decoration 0.3s;
         }
         
         .contact-info a:hover {
-            border-bottom-color: white;
+            opacity: 1;
+            text-decoration: underline;
         }
         
-        /* Section Styles */
+        /* --- THEME SWITCHER --- */
+        .theme-switcher {
+            position: relative;
+        }
+        #theme-toggle-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .theme-palette {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 5px;
+            padding: 5px;
+            display: none;
+            gap: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-top: 5px;
+        }
+        .theme-palette.active { display: flex; }
+        .theme-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            transition: transform 0.2s;
+        }
+        .theme-color:hover { transform: scale(1.1); }
+
+        /* --- GENERAL SECTION STYLES --- */
         .section {
             padding: 35px 50px;
             position: relative;
         }
         
         .section:nth-child(even) {
-            background: #fafbfc;
+            background: var(--secondary-bg);
         }
         
         .section-title {
             font-size: 20px;
             font-weight: 600;
-            color: #1e2c4c;
-            border-bottom: 2px solid #1e2c4c;
+            color: var(--header-bg-start);
+            border-bottom: 2px solid var(--header-bg-start);
             padding-bottom: 8px;
             margin-bottom: 25px;
             text-transform: uppercase;
@@ -155,63 +214,52 @@
             gap: 10px;
         }
         
-        .section-title.competencies {
-             justify-content: flex-start;
-        }
-        
         .section-title::before { font-size: 18px; opacity: 0.8; }
         .section-title.summary-title::before { content: '👤'; }
         .section-title.competencies::before { content: '⚡'; }
         .section-title.experience::before { content: '💼'; }
+        .section-title.projects::before { content: '📁'; }
         .section-title.military::before { content: '🎖️'; }
         .section-title.education::before { content: '🎓'; }
         .section-title.technical::before { content: '⚙️'; }
         .section-title.awards::before { content: '🏆'; }
+        .section-title.publications::before { content: '📚'; }
+        .section-title.languages::before { content: '🌐'; }
 
-        /* Title Animation */
+        /* --- ANIMATIONS --- */
         .animate-title {
             animation: highlight-expand 0.8s ease-out forwards;
         }
 
         @keyframes highlight-expand {
-            0% {
-                transform: scale(1);
-                color: #1e2c4c;
-            }
-            50% {
-                transform: scale(1.05);
-                color: #c41e3a;
-            }
-            100% {
-                transform: scale(1);
-                color: #1e2c4c;
-            }
+            0% { transform: scale(1); color: var(--header-bg-start); }
+            50% { transform: scale(1.05); color: var(--accent-color); }
+            100% { transform: scale(1); color: var(--header-bg-start); }
         }
         
-        /* Professional Summary */
+        /* --- SPECIFIC SECTION STYLES --- */
         .summary-content {
             font-size: 17px;
             line-height: 1.8;
-            color: #34495e;
+            color: var(--secondary-text);
             padding: 20px;
             background: #f8f9fa;
-            border-left: 4px solid #c41e3a;
+            border-left: 4px solid var(--accent-color);
         }
         
-        /* Competencies Section Styles */
         .competencies-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
         
         .competency-group h4 {
             font-size: 17px;
             font-weight: 600;
-            color: #1e2c4c;
+            color: var(--header-bg-start);
             margin-bottom: 15px;
             padding-bottom: 5px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--border-color);
         }
              
         .competency-group ul { list-style: none; padding: 0; }
@@ -227,11 +275,10 @@
             content: '▸';
             position: absolute;
             left: 0;
-            color: #c41e3a;
+            color: var(--accent-color);
             font-weight: bold;
         }
         
-        /* Experience Section */
         .experience-item {
             margin-bottom: 35px;
             padding-bottom: 25px;
@@ -243,7 +290,7 @@
 
         .experience-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+            box-shadow: 0 10px 30px var(--shadow-color);
         }
         
         .experience-item:last-child { border-bottom: none; padding-bottom: 0; }
@@ -253,7 +300,7 @@
         .company-name {
             font-size: 20px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--primary-text);
         }
         
         .company-location {
@@ -276,7 +323,7 @@
         .position-name {
             font-size: 18px;
             font-weight: 500;
-            color: #34495e;
+            color: var(--secondary-text);
         }
         
         .position-date {
@@ -299,13 +346,12 @@
             content: '•';
             position: absolute;
             left: 8px;
-            color: #c41e3a;
+            color: var(--accent-color);
             font-weight: bold;
         }
         
-        .achievements li strong { color: #2c3e50; font-weight: 500; }
+        .achievements li strong { color: var(--primary-text); font-weight: 500; }
         
-        /* Education Section */
         .education-grid { display: grid; gap: 20px; }
         
         .education-item { padding: 15px 0; border-bottom: 1px solid rgba(30, 44, 76, 0.1); }
@@ -314,14 +360,13 @@
         .degree {
             font-size: 18px;
             font-weight: 500;
-            color: #2c3e50;
+            color: var(--primary-text);
             margin-bottom: 5px;
         }
         
-        .gpa { color: #c41e3a; font-weight: 500; margin-left: 10px; }
+        .gpa { color: var(--accent-color); font-weight: 500; margin-left: 10px; }
         .school { font-size: 16px; color: #7f8c8d; }
         
-        /* Technical Expertise */
         .tech-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -330,34 +375,33 @@
         .tech-category h4 {
             font-size: 17px;
             font-weight: 600;
-            color: #1e2c4c;
+            color: var(--header-bg-start);
             margin-bottom: 15px;
         }
         .skill { margin-bottom: 15px; }
         .skill-name { display: block; margin-bottom: 5px; color: #555; }
         .skill-bar {
             height: 8px;
-            background: #e0e0e0;
+            background: var(--border-color);
             border-radius: 4px;
             overflow: hidden;
         }
         .skill-level {
             height: 100%;
-            background: linear-gradient(90deg, #1e2c4c, #2c3e5f);
+            background: linear-gradient(90deg, var(--header-bg-start), var(--header-bg-end));
             border-radius: 4px;
             width: 0;
             transition: width 1.5s ease-out;
         }
         
-        /* Awards Section */
         .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .award-category h4 {
             font-size: 17px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--primary-text);
             margin-bottom: 12px;
             padding-bottom: 6px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--border-color);
         }
         .award-category ul { list-style: none; padding: 0; }
         .award-category li {
@@ -370,14 +414,66 @@
             content: '★';
             position: absolute;
             left: 0;
-            color: #c41e3a;
+            color: var(--accent-color);
         }
 
-        .page-break {
-            page-break-before: always;
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
+        .project-item {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 6px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--header-bg-start);
+            margin-bottom: 8px;
+        }
+        .project-title a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .project-title a:hover { border-color: var(--accent-color); }
+        .project-tech {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+        .project-description { font-size: 16px; line-height: 1.7; color: #555; }
+
+        .list-section ul { list-style: none; padding: 0; }
+        .list-section li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #555;
+        }
+        .list-section li::before {
+            content: '»';
+            position: absolute;
+            left: 8px;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        .publication-title { font-weight: 600; color: var(--primary-text); }
+
+        .page-break { page-break-before: always; }
         
-        /* Responsive */
+        /* --- RESPONSIVE & PRINT --- */
         @media (max-width: 768px) {
             .resume-container { margin: 0; border-radius: 0; }
             .header { padding: 30px; }
@@ -385,26 +481,28 @@
             .section { padding: 25px 30px; }
             .header h1 { font-size: 36px; }
             .contact-info { flex-direction: column; gap: 10px; }
-            .competencies-grid { grid-template-columns: 1fr; }
+            .competencies-grid, .project-grid, .awards-grid, .tech-grid { grid-template-columns: 1fr; }
         }
 
-        /* Print-specific styles */
         @media print {
             body { background: white; }
             .resume-container { box-shadow: none; margin: 0; border-radius: 0; }
-            .download-btn, #header-canvas { display: none !important; }
+            .download-btn, #header-canvas, .theme-switcher { display: none !important; }
             .header {
-                background: #1e2c4c !important;
+                background: linear-gradient(135deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%) !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
             .section:nth-child(even) {
-                background: #fafbfc !important;
+                background: var(--secondary-bg) !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .experience-item:hover { transform: none; box-shadow: none; }
-            .animate-title { animation: none; transform: none; color: #1e2c4c !important; }
+            .experience-item:hover, .project-item:hover { transform: none; box-shadow: none; }
+            .animate-title { animation: none; transform: none; color: var(--header-bg-start) !important; }
+            :root {
+                --accent-color: #c41e3a !important; /* Force a default color for printing */
+            }
             [data-aos] { opacity: 1 !important; transform: none !important; }
             .page-break { page-break-before: always; }
         }
@@ -417,23 +515,36 @@
             <div class="header-content">
                 <div class="header-top">
                     <div>
-                        <!-- CHANGE THIS: Replace with your full name in all caps -->
+                        <!-- CHANGE THIS: Replace with your full name -->
                         <h1>[YOUR FULL NAME]</h1>
-                        <!-- CHANGE THIS: Replace with your professional title or desired position -->
+                        <!-- CHANGE THIS: Replace with your professional title -->
                         <div class="title">[Your Professional Title] | [Your Industry/Specialty]</div>
                     </div>
-                    <div style="text-align: center;">
+                    <div class="header-buttons">
                         <a class="download-btn" id="download-pdf-btn" title="Download as PDF">Download PDF</a>
-                        <!-- OPTIONAL: Replace with your company logo or remove this entire img tag -->
-                        <!-- <img src="your-logo.jpg" alt="Your Logo" style="display: block; margin-top: 15px; max-width: 150px;"> -->
+                        <div class="theme-switcher">
+                            <button id="theme-toggle-btn" title="Change Theme">🎨</button>
+                            <div class="theme-palette" id="theme-palette">
+                                <div class="theme-color" data-color="#c41e3a" style="background: #c41e3a;"></div>
+                                <div class="theme-color" data-color="#2980b9" style="background: #2980b9;"></div>
+                                <div class="theme-color" data-color="#27ae60" style="background: #27ae60;"></div>
+                                <div class="theme-color" data-color="#f39c12" style="background: #f39c12;"></div>
+                                <div class="theme-color" data-color="#8e44ad" style="background: #8e44ad;"></div>
+                            </div>
+                        </div>
+                        <!-- OPTIONAL: Add a professional headshot or company logo. Recommended size: 150x150px -->
+                        <!-- <img src="your-logo.jpg" alt="Your Logo" style="display: block; margin-top: 15px; max-width: 150px; border-radius: 50%;"> -->
                     </div>
                 </div>
                 <div class="contact-info">
-                    <!-- CHANGE THESE: Replace with your actual contact information -->
-                    <span>📍 [Your City, State ZIP]</span>
-                    <span>📱 [Your Phone Number]</span>
-                    <span>✉️ [your.email@example.com]</span>
-                    <span>🔗 [linkedin.com/in/your-profile]</span>
+                    <!-- CHANGE THESE: Replace placeholders with your actual contact information -->
+                    <span><a href="mailto:[your.email@example.com]">✉️ [your.email@example.com]</a></span>
+                    <span><a href="tel:[Your Phone Number]">📱 [Your Phone Number]</a></span>
+                    <span><a href="https://www.google.com/maps/search/?api=1&query=[Your City, State]" target="_blank" rel="noopener noreferrer">📍 [Your City, State]</a></span>
+                    <span><a href="https://[your-portfolio.com]" target="_blank" rel="noopener noreferrer">🌐 [your-portfolio.com]</a></span>
+                    <span><a href="https://linkedin.com/in/[your-profile]" target="_blank" rel="noopener noreferrer">🔗 [linkedin.com/in/your-profile]</a></span>
+                    <!-- For developers, you might want to add a GitHub link. Uncomment the line below. -->
+                    <!-- <span><a href="https://github.com/[your-username]" target="_blank" rel="noopener noreferrer">🐙 [github.com/your-username]</a></span> -->
                 </div>
             </div>
         </header>
@@ -441,57 +552,56 @@
         <section class="section" data-aos="fade-up">
             <h2 class="section-title summary-title">Professional Summary</h2>
             <div class="summary-content">
-                <!-- CHANGE THIS: Write a compelling 3-4 sentence summary about yourself. Include:
-                     - Your profession/title
-                     - Years of experience or key achievements
-                     - Your main areas of expertise
-                     - What makes you unique or valuable
-                     Example: "Experienced Marketing Professional with 8+ years driving digital campaigns for Fortune 500 companies..."
+                <!-- CHANGE THIS: Write a powerful 2-4 sentence summary.
+                     - Who you are professionally.
+                     - What you specialize in (your key skills).
+                     - A top achievement that demonstrates your value.
+                     - Example: "Dynamic and results-oriented Marketing Manager with over 8 years of experience in architecting and launching successful digital campaigns for high-growth startups. Proven ability to increase lead generation by 150% through data-driven SEO and content strategies. Seeking to leverage expertise in brand development to drive growth at a mission-driven company."
                 -->
-                [Write a compelling 3-4 sentence professional summary that highlights your experience, key skills, and what makes you valuable. Focus on quantifiable achievements and specific expertise that relates to your target position.]
+                [Write a compelling 2-4 sentence professional summary that highlights your experience, key skills, and what makes you valuable. Focus on quantifiable achievements and specific expertise that relates to your target position.]
             </div>
         </section>
 
         <section class="section" data-aos="fade-up">
             <h2 class="section-title competencies">Core Competencies</h2>
             <div class="competencies-grid">
-                <!-- CHANGE THESE: Replace with 4 main skill categories relevant to your field.
-                     Each category should have 4-5 specific skills listed.
-                     Examples: Technical Skills, Leadership, Marketing, Project Management, etc. -->
+                <!-- CHANGE THESE: Replace with 4-6 main skill categories relevant to your field.
+                     Each category should have 3-5 specific skills listed.
+                     Examples: Project Management, Data Analysis, Client Relations, Software Development, etc. -->
                 <div class="competency-group">
-                     <h4>[Skill Category 1 - e.g., "Project Management"]</h4>
+                     <h4>[Skill Category 1 - e.g., "Digital Marketing"]</h4>
                     <ul>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
+                        <li>[Specific skill or tool - e.g., SEO/SEM]</li>
+                        <li>[Specific skill or tool - e.g., Content Strategy]</li>
+                        <li>[Specific skill or tool - e.g., Email Marketing Automation]</li>
+                        <li>[Specific skill or tool - e.g., Google Analytics]</li>
                     </ul>
                 </div>
                 <div class="competency-group">
                      <h4>[Skill Category 2 - e.g., "Leadership & Communication"]</h4>
                     <ul>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
+                        <li>[Specific skill - e.g., Cross-Functional Team Leadership]</li>
+                        <li>[Specific skill - e.g., Stakeholder Management]</li>
+                        <li>[Specific skill - e.g., Public Speaking & Presentations]</li>
+                        <li>[Specific skill - e.g., Conflict Resolution]</li>
                     </ul>
                 </div>
                  <div class="competency-group">
                      <h4>[Skill Category 3 - e.g., "Technical Expertise"]</h4>
                     <ul>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
-                        <li>[Specific skill or tool]</li>
+                        <li>[Specific technology - e.g., Python (Pandas, Scikit-learn)]</li>
+                        <li>[Specific technology - e.g., SQL (PostgreSQL, MySQL)]</li>
+                        <li>[Specific technology - e.g., Tableau]</li>
+                        <li>[Specific technology - e.g., AWS (S3, EC2)]</li>
                     </ul>
                 </div>
                 <div class="competency-group">
-                    <h4>[Skill Category 4 - e.g., "Business Strategy"]</h4>
+                    <h4>[Skill Category 4 - e.g., "Project Management"]</h4>
                    <ul>
-                       <li>[Specific skill or tool]</li>
-                       <li>[Specific skill or tool]</li>
-                       <li>[Specific skill or tool]</li>
-                       <li>[Specific skill or tool]</li>
+                       <li>[Specific skill or tool - e.g., Agile & Scrum Methodologies]</li>
+                       <li>[Specific skill or tool - e.g., JIRA & Confluence]</li>
+                       <li>[Specific skill or tool - e.g., Budgeting & Forecasting]</li>
+                       <li>[Specific skill or tool - e.g., Risk Management]</li>
                    </ul>
                </div>
             </div>
@@ -500,69 +610,82 @@
         <section class="section" data-aos="fade-up">
             <h2 class="section-title experience">Professional Experience</h2>
             
-            <!-- EXPERIENCE ITEM 1: Copy this entire div block for each job -->
+            <!-- EXPERIENCE ITEM 1: Copy this entire 'experience-item' div block for each job. -->
             <div class="experience-item">
                 <div class="company-header">
                     <!-- CHANGE THIS: Company name and location -->
                     <div class="company-name">[Company Name]<span class="company-location">[City, State]</span></div>
                 </div>
                 
-                <!-- POSITION BLOCK 1: Copy this div for each role at the same company -->
+                <!-- POSITION BLOCK 1: Copy this 'position-block' for each role at the same company. -->
                 <div class="position-block">
                     <div class="position-title">
                         <!-- CHANGE THESE: Job title and employment dates -->
                         <span class="position-name">[Your Job Title]</span>
-                        <span class="position-date">[Month Year — Month Year]</span>
+                        <span class="position-date">[Month Year] – [Month Year or Present]</span>
                     </div>
                     <ul class="achievements">
-                        <!-- CHANGE THESE: List 3-5 key achievements for this role. 
-                             Use action verbs and quantify results when possible.
-                             Example: "Increased sales by 25% over 6 months by implementing new CRM system" -->
-                        <li><strong>[Action Verb]:</strong> [Description of achievement with quantifiable results when possible]</li>
-                        <li><strong>[Action Verb]:</strong> [Description of achievement with quantifiable results when possible]</li>
-                        <li><strong>[Action Verb]:</strong> [Description of achievement with quantifiable results when possible]</li>
-                        <li><strong>[Action Verb]:</strong> [Description of achievement with quantifiable results when possible]</li>
+                        <!-- CHANGE THESE: List 3-5 key achievements. Use the STAR method (Situation, Task, Action, Result).
+                             - Start with a strong action verb (e.g., "Led," "Architected," "Increased").
+                             - Quantify your results whenever possible (e.g., "Increased revenue by 15%," "Reduced server costs by $5,000/month").
+                             - Example: "Spearheaded a new data analytics initiative that provided key business insights, leading to a 10% improvement in customer retention."
+                        -->
+                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
+                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
+                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
                     </ul>
                 </div>
                 
                 <!-- OPTIONAL: Add another position block here if you had multiple roles at the same company -->
-                <!--
-                <div class="position-block">
-                    <div class="position-title">
-                        <span class="position-name">[Previous Job Title at Same Company]</span>
-                        <span class="position-date">[Month Year — Month Year]</span>
-                    </div>
-                    <ul class="achievements">
-                        <li><strong>[Action Verb]:</strong> [Achievement description]</li>
-                        <li><strong>[Action Verb]:</strong> [Achievement description]</li>
-                    </ul>
-                </div>
-                -->
             </div>
             
-            <!-- EXPERIENCE ITEM 2: Copy the entire experience-item div above for additional jobs -->
+            <!-- EXPERIENCE ITEM 2: This is a second example. Replace or remove it. -->
             <div class="experience-item">
                 <div class="company-header">
-                    <div class="company-name">[Second Company Name]<span class="company-location">[City, State]</span></div>
+                    <div class="company-name">[Previous Company Name]<span class="company-location">[City, State]</span></div>
                 </div>
                 <div class="position-block">
                     <div class="position-title">
-                        <span class="position-name">[Your Job Title]</span>
-                        <span class="position-date">[Month Year — Month Year]</span>
+                        <span class="position-name">[Your Previous Job Title]</span>
+                        <span class="position-date">[Month Year] – [Month Year]</span>
                     </div>
                     <ul class="achievements">
-                        <li>[Achievement description with specific results]</li>
-                        <li>[Achievement description with specific results]</li>
-                        <li>[Achievement description with specific results]</li>
-                        <li>[Achievement description with specific results]</li>
+                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had.]</li>
+                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had.]</li>
                     </ul>
                 </div>
             </div>
-
-            <!-- ADD MORE JOBS: Copy and paste more experience-item divs here as needed -->
         </section>
         
-        <!-- OPTIONAL SECTION: Military Service - Remove this entire section if not applicable -->
+        <!-- OPTIONAL SECTION: PROJECTS. Uncomment to use. Ideal for developers, designers, and creatives. -->
+        <!--
+        <section class="section" data-aos="fade-up">
+            <h2 class="section-title projects">Key Projects</h2>
+            <div class="project-grid">
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="[Link to Project or GitHub]" target="_blank" rel="noopener noreferrer">[Project Name]</a>
+                    </div>
+                    <div class="project-tech">[Primary Technology/Tool Used]</div>
+                    <div class="project-description">
+                        [Briefly describe the project, the problem it solves, and your role. Mention key technologies used and the outcome.]
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-title">
+                        <a href="[Link to Project or GitHub]" target="_blank" rel="noopener noreferrer">[Another Project Name]</a>
+                    </div>
+                    <div class="project-tech">[Primary Technology/Tool Used]</div>
+                    <div class="project-description">
+                        [Briefly describe the project, the problem it solves, and your role. Mention key technologies used and the outcome.]
+                    </div>
+                </div>
+            </div>
+        </section>
+        -->
+
+        <!-- OPTIONAL SECTION: MILITARY SERVICE. Uncomment to use. -->
+        <!--
         <section class="section page-break" data-aos="fade-up">
             <h2 class="section-title military">Military Service</h2>
             <div class="experience-item">
@@ -572,219 +695,256 @@
                 <div class="position-block">
                     <div class="position-title">
                         <span class="position-name">[Military Job Title/MOS] ([Final Rank])</span>
-                        <span class="position-date">[Month Year — Month Year]</span>
+                        <span class="position-date">[Month Year] – [Month Year]</span>
                     </div>
                     <ul class="achievements">
-                        <li>[Military achievement or responsibility]</li>
-                        <li>[Military achievement or responsibility]</li>
-                        <li>[Military achievement or responsibility]</li>
+                        <li>[Describe a key responsibility or achievement, highlighting transferable skills like leadership, discipline, or technical expertise.]</li>
+                        <li>[Describe another key responsibility or achievement.]</li>
                     </ul>
                 </div>
             </div>
         </section>
+        -->
         
         <section class="section" data-aos="fade-up">
             <h2 class="section-title education">Education</h2>
             <div class="education-grid">
-                <!-- EDUCATION ITEM 1: Copy this div for each degree/certification -->
+                <!-- EDUCATION ITEM 1: Copy this 'education-item' div for each degree/certification. -->
                 <div class="education-item">
                     <!-- CHANGE THIS: Your degree and GPA (optional) -->
-                    <div class="degree">[Degree Name]<span class="gpa">[GPA or Honors - optional]</span></div>
+                    <div class="degree">[Degree Name, e.g., B.S. in Computer Science]<span class="gpa">[GPA or Honors - optional]</span></div>
                     <!-- CHANGE THIS: School name and location -->
                     <div class="school">[University/College Name] | [City, State]</div>
                 </div>
                 
-                <!-- EDUCATION ITEM 2: Copy above div for additional degrees -->
+                <!-- EDUCATION ITEM 2: Example for a certification. Replace or remove. -->
                 <div class="education-item">
-                    <div class="degree">[Second Degree/Certification]</div>
-                    <div class="school">[Institution Name] | [City, State]</div>
+                    <div class="degree">[Certification Name, e.g., Certified Project Manager (PMP)]</div>
+                    <div class="school">[Certifying Institution] | [Year or Expiration]</div>
                 </div>
-                
-                <!-- ADD MORE: Copy education-item divs for additional education -->
             </div>
         </section>
         
         <section class="section" data-aos="fade-up" id="skills-section">
             <h2 class="section-title technical">Technical Expertise</h2>
             <div class="tech-grid">
-                <!-- SKILL CATEGORY 1: Copy this div for each technical skill category -->
+                <!-- SKILL CATEGORY 1: Copy this 'tech-category' div for each skill category. -->
                 <div class="tech-category">
                     <!-- CHANGE THIS: Category name -->
                     <h4>[Skill Category - e.g., "Programming Languages"]</h4>
-                    <!-- SKILL 1: Copy this div for each individual skill -->
+                    <!-- SKILL 1: Copy this 'skill' div for each individual skill. -->
                     <div class="skill">
                         <!-- CHANGE THIS: Skill name -->
-                        <span class="skill-name">[Specific Skill/Tool Name]</span>
-                        <!-- CHANGE THIS: Skill level percentage (30%, 50%, 70%, 90%, etc.) -->
-                        <div class="skill-bar"><div class="skill-level" data-level="[XX%]"></div></div>
+                        <span class="skill-name">[Specific Skill/Tool Name - e.g., JavaScript]</span>
+                        <!-- CHANGE THIS: Skill level (e.g., 90%). This determines the bar width. -->
+                        <div class="skill-bar"><div class="skill-level" data-level="90%"></div></div>
                     </div>
-                    <!-- SKILL 2: Copy above skill div -->
                     <div class="skill">
-                        <span class="skill-name">[Another Skill/Tool Name]</span>
-                        <div class="skill-bar"><div class="skill-level" data-level="[XX%]"></div></div>
+                        <span class="skill-name">[Specific Skill/Tool Name - e.g., Python]</span>
+                        <div class="skill-bar"><div class="skill-level" data-level="75%"></div></div>
                     </div>
                 </div>
                 
-                <!-- SKILL CATEGORY 2: Copy entire tech-category div above -->
+                <!-- SKILL CATEGORY 2: Example category. Replace or remove. -->
                 <div class="tech-category">
-                    <h4>[Another Skill Category]</h4>
+                    <h4>[Skill Category - e.g., "Databases"]</h4>
                     <div class="skill">
-                        <span class="skill-name">[Skill Name]</span>
-                        <div class="skill-bar"><div class="skill-level" data-level="[XX%]"></div></div>
+                        <span class="skill-name">[Skill Name - e.g., MySQL]</span>
+                        <div class="skill-bar"><div class="skill-level" data-level="85%"></div></div>
                     </div>
                     <div class="skill">
-                        <span class="skill-name">[Skill Name]</span>
-                        <div class="skill-bar"><div class="skill-level" data-level="[XX%]"></div></div>
+                        <span class="skill-name">[Skill Name - e.g., MongoDB]</span>
+                        <div class="skill-bar"><div class="skill-level" data-level="65%"></div></div>
                     </div>
                 </div>
-                
-                <!-- ADD MORE: Copy tech-category divs for additional skill categories -->
             </div>
         </section>
         
-        <!-- OPTIONAL SECTION: Remove this section if you don't have relevant awards -->
+        <!-- OPTIONAL SECTION: HONORS & AWARDS. Uncomment to use. -->
+        <!--
         <section class="section" data-aos="fade-up">
             <h2 class="section-title awards">Honors & Awards</h2>
             <div class="awards-grid">
-                <!-- AWARD CATEGORY 1: Copy this div for each award category -->
                 <div class="award-category">
-                    <!-- CHANGE THIS: Award category (company name, organization, etc.) -->
                     <h4>[Award Category - e.g., Company Name or Organization]</h4>
                     <ul>
-                        <!-- CHANGE THESE: List your awards -->
-                        <li>[Specific Award Name]</li>
-                        <li>[Specific Award Name]</li>
-                        <li>[Specific Award Name]</li>
+                        <li>[Specific Award Name] - [Year]</li>
+                        <li>[Specific Award Name] - [Year]</li>
                     </ul>
                 </div>
-                
-                <!-- AWARD CATEGORY 2: Copy above div for more categories -->
                 <div class="award-category">
                     <h4>[Another Award Category]</h4>
                     <ul>
-                        <li>[Award Name]</li>
-                        <li>[Award Name]</li>
+                        <li>[Award Name] - [Year]</li>
                     </ul>
                 </div>
             </div>
         </section>
+        -->
+
+        <!-- OPTIONAL SECTION: PUBLICATIONS. Uncomment to use. Ideal for academics and researchers. -->
+        <!--
+        <section class="section list-section" data-aos="fade-up">
+            <h2 class="section-title publications">Publications</h2>
+            <ul>
+                <li>
+                    <span class="publication-title">"[Article Title]"</span> - [Journal Name], [Year].
+                </li>
+                <li>
+                    <span class="publication-title">"[Another Article Title]"</span> - [Conference Proceedings], [Year].
+                </li>
+            </ul>
+        </section>
+        -->
+
+        <!-- OPTIONAL SECTION: LANGUAGES. Uncomment to use. -->
+        <!--
+        <section class="section list-section" data-aos="fade-up">
+            <h2 class="section-title languages">Languages</h2>
+            <ul>
+                <li>[Language] - [Proficiency Level, e.g., Native, Fluent, Professional Working Proficiency]</li>
+                <li>[Language] - [Proficiency Level]</li>
+            </ul>
+        </section>
+        -->
     </div>
 
-    <!-- JavaScript - Don't change anything below this line unless you know what you're doing -->
+    <!-- JAVASCRIPT LIBRARIES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- MAIN SCRIPT -->
     <script>
-        // Initialize AOS
+        // --- INITIALIZATION ---
         AOS.init({
-            duration: 800, // animation duration
-            once: true, // whether animation should happen only once - while scrolling down
+            duration: 800,
+            once: true,
         });
 
-        // Intersection Observer for Skill Bars
-        const skillsSection = document.getElementById('skills-section');
-        const skillLevels = document.querySelectorAll('.skill-level');
-
-        const skillObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    skillLevels.forEach(skill => {
-                        skill.style.width = skill.getAttribute('data-level');
-                    });
-                    skillObserver.unobserve(entry.target); // Stop observing once animated
-                }
-            });
-        }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
-
-        skillObserver.observe(skillsSection);
-
-        // Intersection Observer for Section Titles
-        const titles = document.querySelectorAll('.section-title');
-
-        const titleObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-title');
-                    titleObserver.unobserve(entry.target); // Stop observing once animated
-                }
-            });
-        }, { threshold: 0.8 }); // Trigger when 80% of the title is visible
-
-        titles.forEach(title => {
-            titleObserver.observe(title);
-        });
-
-
-        // --- Three.js Background Animation ---
-        const canvas = document.getElementById('header-canvas');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-        
-        renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-
-        // Create particles
-        const particlesGeometry = new THREE.BufferGeometry;
-        const particlesCount = 3000;
-        const posArray = new Float32Array(particlesCount * 3);
-
-        for (let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 10;
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.008,
-            color: 0xffffff,
-            transparent: true,
-            opacity: 0.6
-        });
-
-        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particlesMesh);
-
-        camera.position.z = 5;
-
-        // Mouse tracking for interaction
-        let mouseX = 0;
-        let mouseY = 0;
-        document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-        });
-
-        // Animation loop
-        const clock = new THREE.Clock();
-        const animate = () => {
-            const elapsedTime = clock.getElapsedTime();
-            
-            // Animate particles
-            particlesMesh.rotation.y = -0.05 * elapsedTime;
-            
-            // Make particles react to mouse
-             camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.02;
-             camera.position.y += (-mouseY * 0.5 - camera.position.y) * 0.02;
-             camera.lookAt(scene.position);
-            
-            renderer.render(scene, camera);
-            window.requestAnimationFrame(animate);
+        // --- INTERSECTION OBSERVER FOR ANIMATIONS ---
+        const setupObserver = (selector, callback, options) => {
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        callback(entry.target);
+                        observerInstance.unobserve(entry.target);
+                    }
+                });
+            }, options);
+            document.querySelectorAll(selector).forEach(el => observer.observe(el));
         };
-        animate();
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
+        // Animate skill bars into view
+        setupObserver('#skills-section', (el) => {
+            el.querySelectorAll('.skill-level').forEach(skill => {
+                skill.style.width = skill.getAttribute('data-level');
+            });
+        }, { threshold: 0.5 });
+
+        // Animate section titles into view
+        setupObserver('.section-title', (el) => {
+            el.classList.add('animate-title');
+        }, { threshold: 0.8 });
+
+
+        // --- THREE.JS HEADER ANIMATION ---
+        const initHeaderAnimation = () => {
+            const canvas = document.getElementById('header-canvas');
+            if (!canvas) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+
             renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-            camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
-            camera.updateProjectionMatrix();
             renderer.setPixelRatio(window.devicePixelRatio);
-        });
 
-        // --- PDF Download Functionality ---
-        document.getElementById('download-pdf-btn').addEventListener('click', function() {
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 3000;
+            const posArray = new Float32Array(particlesCount * 3);
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.008,
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.6
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            camera.position.z = 5;
+
+            let mouseX = 0, mouseY = 0;
+            const onMouseMove = (event) => {
+                mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            };
+            document.addEventListener('mousemove', onMouseMove);
+
+            const clock = new THREE.Clock();
+            const animate = () => {
+                const elapsedTime = clock.getElapsedTime();
+                particlesMesh.rotation.y = -0.05 * elapsedTime;
+                camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.02;
+                camera.position.y += (-mouseY * 0.5 - camera.position.y) * 0.02;
+                camera.lookAt(scene.position);
+                renderer.render(scene, camera);
+                window.requestAnimationFrame(animate);
+            };
+            animate();
+
+            const onResize = () => {
+                renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+                camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
+                camera.updateProjectionMatrix();
+                renderer.setPixelRatio(window.devicePixelRatio);
+            };
+            window.addEventListener('resize', onResize);
+        };
+        initHeaderAnimation();
+
+        // --- PDF DOWNLOAD ---
+        document.getElementById('download-pdf-btn').addEventListener('click', () => {
             window.print();
         });
 
+        // --- THEME SWITCHER ---
+        const initThemeSwitcher = () => {
+            const themeToggleButton = document.getElementById('theme-toggle-btn');
+            const themePalette = document.getElementById('theme-palette');
+            const colorOptions = document.querySelectorAll('.theme-color');
+            const root = document.documentElement;
+
+            const savedTheme = localStorage.getItem('resume-theme-color');
+            if (savedTheme) {
+                root.style.setProperty('--accent-color', savedTheme);
+            }
+
+            themeToggleButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                themePalette.classList.toggle('active');
+            });
+
+            colorOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const newColor = option.getAttribute('data-color');
+                    root.style.setProperty('--accent-color', newColor);
+                    localStorage.setItem('resume-theme-color', newColor);
+                    themePalette.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!themePalette.contains(e.target) && e.target !== themeToggleButton) {
+                    themePalette.classList.remove('active');
+                }
+            });
+        };
+        initThemeSwitcher();
     </script>
 </body>
 </html>
