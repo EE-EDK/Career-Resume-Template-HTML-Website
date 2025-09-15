@@ -1,6 +1,7 @@
 # **Animated HTML Resume & GitHub Pages Hosting**
 
 This repository contains an animated HTML/CSS resume template. Below are the combined instructions for customizing the template with your information and publishing it as a live website using GitHub Pages.
+
 See the Template here for example ->  https://ee-edk.github.io/Career-Resume-Template-HTML-Website/
 
 ## **Section 1: How to Customize Your Resume Template**
