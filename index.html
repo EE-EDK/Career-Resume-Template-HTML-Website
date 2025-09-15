@@ -565,9 +565,12 @@
         }
 
         @media print {
+            .resume-body {
+                display: block !important;
+            }
             body { background: white; }
             .resume-container { box-shadow: none; margin: 0; border-radius: 0; }
-            .download-btn, #header-canvas, .theme-switcher { display: none !important; }
+            .download-btn, #header-canvas, .theme-switcher, #layout-toggle-btn, #dark-mode-toggle-btn, #font-toggle-btn, #settings-toggle-btn, #settings-panel { display: none !important; }
             .header {
                 background: linear-gradient(135deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%) !important;
                 -webkit-print-color-adjust: exact;
@@ -807,9 +810,7 @@
             </aside>
         </div>
 
-        <!-- OPTIONAL SECTION: PROJECTS. Uncomment to use. Ideal for developers, designers, and creatives. -->
-        <!--
-        <section class="section" id="projects-section" data-aos="fade-up">
+        <section class="section section-hidden" id="projects-section" data-aos="fade-up">
             <h2 class="section-title projects">Key Projects</h2>
             <div class="project-grid">
                 <div class="project-item">
@@ -832,11 +833,8 @@
                 </div>
             </div>
         </section>
-        -->
 
-        <!-- OPTIONAL SECTION: MILITARY SERVICE. Uncomment to use. -->
-        <!--
-        <section class="section page-break" id="military-section" data-aos="fade-up">
+        <section class="section page-break section-hidden" id="military-section" data-aos="fade-up">
             <h2 class="section-title military">Military Service</h2>
             <div class="experience-item">
                 <div class="company-header">
@@ -854,11 +852,8 @@
                 </div>
             </div>
         </section>
-        -->
         
-        <!-- OPTIONAL SECTION: HONORS & AWARDS. Uncomment to use. -->
-        <!--
-        <section class="section" id="awards-section" data-aos="fade-up">
+        <section class="section section-hidden" id="awards-section" data-aos="fade-up">
             <h2 class="section-title awards">Honors & Awards</h2>
             <div class="awards-grid">
                 <div class="award-category">
@@ -876,11 +871,8 @@
                 </div>
             </div>
         </section>
-        -->
 
-        <!-- OPTIONAL SECTION: PUBLICATIONS. Uncomment to use. Ideal for academics and researchers. -->
-        <!--
-        <section class="section list-section" id="publications-section" data-aos="fade-up">
+        <section class="section list-section section-hidden" id="publications-section" data-aos="fade-up">
             <h2 class="section-title publications">Publications</h2>
             <ul>
                 <li>
@@ -891,18 +883,14 @@
                 </li>
             </ul>
         </section>
-        -->
 
-        <!-- OPTIONAL SECTION: LANGUAGES. Uncomment to use. -->
-        <!--
-        <section class="section list-section" id="languages-section" data-aos="fade-up">
+        <section class="section list-section section-hidden" id="languages-section" data-aos="fade-up">
             <h2 class="section-title languages">Languages</h2>
             <ul>
                 <li>[Language] - [Proficiency Level, e.g., Native, Fluent, Professional Working Proficiency]</li>
                 <li>[Language] - [Proficiency Level]</li>
             </ul>
         </section>
-        -->
     </div>
 
     <div id="settings-panel">
@@ -1156,24 +1144,25 @@
                 const sectionId = toggle.getAttribute('data-section');
                 const section = document.getElementById(sectionId);
 
-                if(section) {
+                if (section) {
                     // Load saved state
                     const savedState = localStorage.getItem(`section-${sectionId}-visible`);
-                    if (savedState === 'false') {
-                        section.parentElement.classList.add('section-hidden');
-                        toggle.checked = false;
-                    } else {
-                        section.parentElement.classList.remove('section-hidden');
-                        toggle.checked = true;
-                    }
 
+                    // Default to hidden if no saved state
+                    if (savedState === 'true') {
+                        section.classList.remove('section-hidden');
+                        toggle.checked = true;
+                    } else {
+                        section.classList.add('section-hidden');
+                        toggle.checked = false;
+                    }
 
                     toggle.addEventListener('change', () => {
                         if (toggle.checked) {
-                            section.parentElement.classList.remove('section-hidden');
+                            section.classList.remove('section-hidden');
                             localStorage.setItem(`section-${sectionId}-visible`, 'true');
                         } else {
-                            section.parentElement.classList.add('section-hidden');
+                            section.classList.add('section-hidden');
                             localStorage.setItem(`section-${sectionId}-visible`, 'false');
                         }
                     });
