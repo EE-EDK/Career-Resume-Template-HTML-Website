@@ -4,23 +4,17 @@ This guide provides step-by-step instructions on how to personalize your animate
 
 ## Table of Contents
 1.  [Getting Started](#getting-started)
-2.  [Editing Content](#editing-content)
+2.  [Live Customization Controls](#live-customization-controls)
+    - [Changing Layout, Theme, and Fonts](#changing-layout-theme-and-fonts)
+    - [Toggling Sections On/Off](#toggling-sections-onoff)
+3.  [Editing Content](#editing-content)
     - [Header & Contact Info](#header--contact-info)
     - [Professional Summary](#professional-summary)
     - [Core Competencies](#core-competencies)
     - [Professional Experience](#professional-experience)
     - [Education](#education)
     - [Technical Expertise](#technical-expertise)
-3.  [Using Optional Sections](#using-optional-sections)
-    - [Enabling a Section](#enabling-a-section)
-    - [Key Projects](#key-projects)
-    - [Military Service](#military-service)
-    - [Honors & Awards](#honors--awards)
-    - [Publications](#publications)
-    - [Languages](#languages)
-4.  [Customizing Appearance](#customizing-appearance)
-    - [Changing the Theme Color](#changing-the-theme-color)
-    - [Adding a Headshot or Logo](#adding-a-headshot-or-logo)
+4.  [Using Optional Sections](#using-optional-sections)
 5.  [Saving and Viewing](#saving-and-viewing)
 
 ---
@@ -30,6 +24,32 @@ This guide provides step-by-step instructions on how to personalize your animate
 To edit the template, you need a code editor (like [VS Code](https://code.visualstudio.com/), [Sublime Text](https://www.sublimetext.com/), or even a basic text editor like Notepad).
 
 Open the `index.html` file in your editor to begin making changes. All the content and styling are in this single file.
+
+---
+
+## Live Customization Controls
+
+This template includes a powerful set of live customization controls that allow you to change the look and feel of your resume directly in the browser. Your preferences are automatically saved in your browser's `localStorage`.
+
+### Changing Layout, Theme, and Fonts
+
+In the top-right corner of the header, you will find several control buttons:
+
+*   **🎨 Change Theme Color:** Click the paintbrush icon to open a color palette. Select any color to change the resume's primary accent color.
+*   **📄 Toggle Layout:** Click the document icon to switch between a traditional single-column layout and a modern two-column layout.
+*   **🌙 Toggle Dark Mode:** Click the moon icon to switch between light and dark themes.
+*   **🔠 Change Font:** Click the font icon to choose from a selection of professional fonts (Inter, Lato, Merriweather, Roboto).
+
+### Toggling Sections On/Off
+
+You can easily preview your resume with different sections enabled or disabled.
+
+1.  Click the **Settings** icon (⚙️) in the header to open the "Customize Sections" panel.
+2.  Use the checkboxes to show or hide the optional sections (Projects, Military Service, etc.) in real-time.
+
+**Note:** This is a **preview tool**. Hiding a section with this control does **not** remove it from the HTML. To permanently remove a section, you still need to delete or comment out its HTML block (see [Using Optional Sections](#using-optional-sections)).
+
+---
 
 ## Editing Content
 
@@ -77,13 +97,10 @@ In the `Technical Expertise` section:
 
 ## Using Optional Sections
 
-The template includes several optional sections that are **commented out** by default. This means they are present in the code but are not visible in the browser.
+The template includes several optional sections that are **commented out** by default. To use them, you must enable them in the HTML.
 
-### Enabling a Section
-
-To make an optional section appear on your resume, you need to remove the comment tags surrounding it.
-- Find the start of the section, which looks like: `<!-- OPTIONAL SECTION: [SECTION NAME]...`
-- Delete the `<!--` from the beginning and the `-->` from the end of the section block.
+1.  **Find the section:** Locate the section you want to use (e.g., `<!-- OPTIONAL SECTION: PROJECTS... -->`).
+2.  **Uncomment the block:** Delete the `<!--` from the beginning and the `-->` from the end of the section block.
 
 The available optional sections are:
 -   **Key Projects:** Ideal for showing off your work with links.
@@ -92,24 +109,7 @@ The available optional sections are:
 -   **Publications:** For academics and researchers.
 -   **Languages:** List the languages you speak and your proficiency.
 
----
-
-## Customizing Appearance
-
-### Changing the Theme Color
-
-You can easily change the main accent color of the resume (the red color used for links, bullets, etc.).
-1.  In the header, click the paintbrush icon (`🎨`).
-2.  A palette of pre-selected colors will appear.
-3.  Click any color to instantly change the theme. Your choice is automatically saved in your browser for the next time you visit.
-
-### Adding a Headshot or Logo
-
-You can add a small image to the header (like a professional headshot).
-1.  Find the line: `<!-- OPTIONAL: Add a professional headshot or company logo... -->`
-2.  Uncomment the `<img>` tag by removing the `<!--` and `-->`.
-3.  Replace `"your-logo.jpg"` with the path to your image file. Make sure the image file is in the same folder as your `index.html` file, or provide the correct path.
-4.  A recommended size is around 150x150 pixels.
+You can use the **Live Customization Controls** (⚙️) to preview how your resume looks with these sections turned on or off before deciding to uncomment them permanently.
 
 ---
 

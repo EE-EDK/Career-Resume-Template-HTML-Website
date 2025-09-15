@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CHANGE THIS: Update the title with your name and profession -->
     <title>[YOUR NAME] - [YOUR PROFESSION/TITLE]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Merriweather:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         /* --- THEME AND COLOR VARIABLES --- */
         :root {
+            --body-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             --primary-text: #2c3e50;
             --secondary-text: #34495e;
             --primary-bg: #f5f6f7;
@@ -22,7 +26,6 @@
         }
 
         /* --- FONT AND BASE STYLES --- */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -31,7 +34,7 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: var(--body-font);
             line-height: 1.6;
             color: var(--primary-text);
             background: var(--primary-bg);
@@ -158,7 +161,7 @@
         .theme-switcher {
             position: relative;
         }
-        #theme-toggle-btn {
+        #layout-toggle-btn, #dark-mode-toggle-btn, #font-toggle-btn {
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
             color: white;
@@ -472,9 +475,86 @@
         .publication-title { font-weight: 600; color: var(--primary-text); }
 
         .page-break { page-break-before: always; }
+
+        /* --- TWO-COLUMN LAYOUT --- */
+        .two-column .resume-body {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-template-areas: "sidebar main";
+            gap: 30px;
+        }
+        .two-column .main-content { grid-area: main; }
+        .two-column .sidebar { grid-area: sidebar; }
+
+        /* --- DARK MODE --- */
+        body.dark-mode {
+            --primary-text: #e0e0e0;
+            --secondary-text: #b0b0b0;
+            --primary-bg: #1a1a1a;
+            --secondary-bg: #2a2a2a;
+            --header-bg-start: #0d1117;
+            --header-bg-end: #161b22;
+            --border-color: #444;
+            --shadow-color: rgba(0,0,0,0.4);
+        }
+
+        body.dark-mode .resume-container {
+            background: #222;
+        }
+
+        body.dark-mode .project-item {
+            background: #333;
+            border-color: #444;
+        }
+
+        body.dark-mode .summary-content {
+            background: #333;
+        }
+
+        /* --- SETTINGS PANEL --- */
+        #settings-panel {
+            position: fixed;
+            top: 20px;
+            right: -300px;
+            width: 280px;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px 0 0 10px;
+            padding: 20px;
+            transition: right 0.3s ease-in-out;
+            z-index: 1001;
+        }
+        #settings-panel.active {
+            right: 0;
+        }
+        #settings-panel h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .section-hidden {
+            display: none !important;
+        }
+        body.dark-mode #settings-panel {
+            background: #2a2a2a;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.4);
+        }
+        body.dark-mode #settings-panel h3 {
+            border-bottom-color: #444;
+        }
         
         /* --- RESPONSIVE & PRINT --- */
         @media (max-width: 768px) {
+            .resume-body {
+                display: block;
+            }
             .resume-container { margin: 0; border-radius: 0; }
             .header { padding: 30px; }
             .header-top { flex-direction: column; gap: 20px; }
@@ -532,6 +612,18 @@
                                 <div class="theme-color" data-color="#8e44ad" style="background: #8e44ad;"></div>
                             </div>
                         </div>
+                        <button id="layout-toggle-btn" title="Toggle Layout">📄</button>
+                        <button id="dark-mode-toggle-btn" title="Toggle Dark Mode">🌙</button>
+                        <div class="font-switcher">
+                            <button id="font-toggle-btn" title="Change Font">🔠</button>
+                            <div class="font-palette" id="font-palette">
+                                <button class="font-option" data-font="'Inter', sans-serif" style="font-family: 'Inter', sans-serif;">Inter</button>
+                                <button class="font-option" data-font="'Lato', sans-serif" style="font-family: 'Lato', sans-serif;">Lato</button>
+                                <button class="font-option" data-font="'Merriweather', serif" style="font-family: 'Merriweather', serif;">Merriweather</button>
+                                <button class="font-option" data-font="'Roboto', sans-serif" style="font-family: 'Roboto', sans-serif;">Roboto</button>
+                            </div>
+                        </div>
+                        <button id="settings-toggle-btn" title="Settings">⚙️</button>
                         <!-- OPTIONAL: Add a professional headshot or company logo. Recommended size: 150x150px -->
                         <!-- <img src="your-logo.jpg" alt="Your Logo" style="display: block; margin-top: 15px; max-width: 150px; border-radius: 50%;"> -->
                     </div>
@@ -549,117 +641,175 @@
             </div>
         </header>
         
-        <section class="section" data-aos="fade-up">
-            <h2 class="section-title summary-title">Professional Summary</h2>
-            <div class="summary-content">
-                <!-- CHANGE THIS: Write a powerful 2-4 sentence summary.
-                     - Who you are professionally.
-                     - What you specialize in (your key skills).
-                     - A top achievement that demonstrates your value.
-                     - Example: "Dynamic and results-oriented Marketing Manager with over 8 years of experience in architecting and launching successful digital campaigns for high-growth startups. Proven ability to increase lead generation by 150% through data-driven SEO and content strategies. Seeking to leverage expertise in brand development to drive growth at a mission-driven company."
-                -->
-                [Write a compelling 2-4 sentence professional summary that highlights your experience, key skills, and what makes you valuable. Focus on quantifiable achievements and specific expertise that relates to your target position.]
-            </div>
-        </section>
-
-        <section class="section" data-aos="fade-up">
-            <h2 class="section-title competencies">Core Competencies</h2>
-            <div class="competencies-grid">
-                <!-- CHANGE THESE: Replace with 4-6 main skill categories relevant to your field.
-                     Each category should have 3-5 specific skills listed.
-                     Examples: Project Management, Data Analysis, Client Relations, Software Development, etc. -->
-                <div class="competency-group">
-                     <h4>[Skill Category 1 - e.g., "Digital Marketing"]</h4>
-                    <ul>
-                        <li>[Specific skill or tool - e.g., SEO/SEM]</li>
-                        <li>[Specific skill or tool - e.g., Content Strategy]</li>
-                        <li>[Specific skill or tool - e.g., Email Marketing Automation]</li>
-                        <li>[Specific skill or tool - e.g., Google Analytics]</li>
-                    </ul>
-                </div>
-                <div class="competency-group">
-                     <h4>[Skill Category 2 - e.g., "Leadership & Communication"]</h4>
-                    <ul>
-                        <li>[Specific skill - e.g., Cross-Functional Team Leadership]</li>
-                        <li>[Specific skill - e.g., Stakeholder Management]</li>
-                        <li>[Specific skill - e.g., Public Speaking & Presentations]</li>
-                        <li>[Specific skill - e.g., Conflict Resolution]</li>
-                    </ul>
-                </div>
-                 <div class="competency-group">
-                     <h4>[Skill Category 3 - e.g., "Technical Expertise"]</h4>
-                    <ul>
-                        <li>[Specific technology - e.g., Python (Pandas, Scikit-learn)]</li>
-                        <li>[Specific technology - e.g., SQL (PostgreSQL, MySQL)]</li>
-                        <li>[Specific technology - e.g., Tableau]</li>
-                        <li>[Specific technology - e.g., AWS (S3, EC2)]</li>
-                    </ul>
-                </div>
-                <div class="competency-group">
-                    <h4>[Skill Category 4 - e.g., "Project Management"]</h4>
-                   <ul>
-                       <li>[Specific skill or tool - e.g., Agile & Scrum Methodologies]</li>
-                       <li>[Specific skill or tool - e.g., JIRA & Confluence]</li>
-                       <li>[Specific skill or tool - e.g., Budgeting & Forecasting]</li>
-                       <li>[Specific skill or tool - e.g., Risk Management]</li>
-                   </ul>
-               </div>
-            </div>
-        </section>
-        
-        <section class="section" data-aos="fade-up">
-            <h2 class="section-title experience">Professional Experience</h2>
-            
-            <!-- EXPERIENCE ITEM 1: Copy this entire 'experience-item' div block for each job. -->
-            <div class="experience-item">
-                <div class="company-header">
-                    <!-- CHANGE THIS: Company name and location -->
-                    <div class="company-name">[Company Name]<span class="company-location">[City, State]</span></div>
-                </div>
-                
-                <!-- POSITION BLOCK 1: Copy this 'position-block' for each role at the same company. -->
-                <div class="position-block">
-                    <div class="position-title">
-                        <!-- CHANGE THESE: Job title and employment dates -->
-                        <span class="position-name">[Your Job Title]</span>
-                        <span class="position-date">[Month Year] – [Month Year or Present]</span>
-                    </div>
-                    <ul class="achievements">
-                        <!-- CHANGE THESE: List 3-5 key achievements. Use the STAR method (Situation, Task, Action, Result).
-                             - Start with a strong action verb (e.g., "Led," "Architected," "Increased").
-                             - Quantify your results whenever possible (e.g., "Increased revenue by 15%," "Reduced server costs by $5,000/month").
-                             - Example: "Spearheaded a new data analytics initiative that provided key business insights, leading to a 10% improvement in customer retention."
+        <div class="resume-body">
+            <main class="main-content">
+                <section class="section" data-aos="fade-up">
+                    <h2 class="section-title summary-title">Professional Summary</h2>
+                    <div class="summary-content">
+                        <!-- CHANGE THIS: Write a powerful 2-4 sentence summary.
+                             - Who you are professionally.
+                             - What you specialize in (your key skills).
+                             - A top achievement that demonstrates your value.
+                             - Example: "Dynamic and results-oriented Marketing Manager with over 8 years of experience in architecting and launching successful digital campaigns for high-growth startups. Proven ability to increase lead generation by 150% through data-driven SEO and content strategies. Seeking to leverage expertise in brand development to drive growth at a mission-driven company."
                         -->
-                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
-                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
-                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
-                    </ul>
-                </div>
-                
-                <!-- OPTIONAL: Add another position block here if you had multiple roles at the same company -->
-            </div>
-            
-            <!-- EXPERIENCE ITEM 2: This is a second example. Replace or remove it. -->
-            <div class="experience-item">
-                <div class="company-header">
-                    <div class="company-name">[Previous Company Name]<span class="company-location">[City, State]</span></div>
-                </div>
-                <div class="position-block">
-                    <div class="position-title">
-                        <span class="position-name">[Your Previous Job Title]</span>
-                        <span class="position-date">[Month Year] – [Month Year]</span>
+                        [Write a compelling 2-4 sentence professional summary that highlights your experience, key skills, and what makes you valuable. Focus on quantifiable achievements and specific expertise that relates to your target position.]
                     </div>
-                    <ul class="achievements">
-                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had.]</li>
-                        <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had.]</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
+                </section>
+
+                <section class="section" data-aos="fade-up">
+                    <h2 class="section-title experience">Professional Experience</h2>
+
+                    <!-- EXPERIENCE ITEM 1: Copy this entire 'experience-item' div block for each job. -->
+                    <div class="experience-item">
+                        <div class="company-header">
+                            <!-- CHANGE THIS: Company name and location -->
+                            <div class="company-name">[Company Name]<span class="company-location">[City, State]</span></div>
+                        </div>
+
+                        <!-- POSITION BLOCK 1: Copy this 'position-block' for each role at the same company. -->
+                        <div class="position-block">
+                            <div class="position-title">
+                                <!-- CHANGE THESE: Job title and employment dates -->
+                                <span class="position-name">[Your Job Title]</span>
+                                <span class="position-date">[Month Year] – [Month Year or Present]</span>
+                            </div>
+                            <ul class="achievements">
+                                <!-- CHANGE THESE: List 3-5 key achievements. Use the STAR method (Situation, Task, Action, Result).
+                                     - Start with a strong action verb (e.g., "Led," "Architected," "Increased").
+                                     - Quantify your results whenever possible (e.g., "Increased revenue by 15%," "Reduced server costs by $5,000/month").
+                                     - Example: "Spearheaded a new data analytics initiative that provided key business insights, leading to a 10% improvement in customer retention."
+                                -->
+                                <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
+                                <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
+                                <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had. Be specific and use numbers to show impact.]</li>
+                            </ul>
+                        </div>
+
+                        <!-- OPTIONAL: Add another position block here if you had multiple roles at the same company -->
+                    </div>
+
+                    <!-- EXPERIENCE ITEM 2: This is a second example. Replace or remove it. -->
+                    <div class="experience-item">
+                        <div class="company-header">
+                            <div class="company-name">[Previous Company Name]<span class="company-location">[City, State]</span></div>
+                        </div>
+                        <div class="position-block">
+                            <div class="position-title">
+                                <span class="position-name">[Your Previous Job Title]</span>
+                                <span class="position-date">[Month Year] – [Month Year]</span>
+                            </div>
+                            <ul class="achievements">
+                                <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had.]</li>
+                                <li><strong>[Strong Action Verb]:</strong> [Describe your accomplishment and the positive result it had.]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <aside class="sidebar">
+                <section class="section" data-aos="fade-up">
+                    <h2 class="section-title competencies">Core Competencies</h2>
+                    <div class="competencies-grid">
+                        <!-- CHANGE THESE: Replace with 4-6 main skill categories relevant to your field.
+                             Each category should have 3-5 specific skills listed.
+                             Examples: Project Management, Data Analysis, Client Relations, Software Development, etc. -->
+                        <div class="competency-group">
+                             <h4>[Skill Category 1 - e.g., "Digital Marketing"]</h4>
+                            <ul>
+                                <li>[Specific skill or tool - e.g., SEO/SEM]</li>
+                                <li>[Specific skill or tool - e.g., Content Strategy]</li>
+                                <li>[Specific skill or tool - e.g., Email Marketing Automation]</li>
+                                <li>[Specific skill or tool - e.g., Google Analytics]</li>
+                            </ul>
+                        </div>
+                        <div class="competency-group">
+                             <h4>[Skill Category 2 - e.g., "Leadership & Communication"]</h4>
+                            <ul>
+                                <li>[Specific skill - e.g., Cross-Functional Team Leadership]</li>
+                                <li>[Specific skill - e.g., Stakeholder Management]</li>
+                                <li>[Specific skill - e.g., Public Speaking & Presentations]</li>
+                                <li>[Specific skill - e.g., Conflict Resolution]</li>
+                            </ul>
+                        </div>
+                         <div class="competency-group">
+                             <h4>[Skill Category 3 - e.g., "Technical Expertise"]</h4>
+                            <ul>
+                                <li>[Specific technology - e.g., Python (Pandas, Scikit-learn)]</li>
+                                <li>[Specific technology - e.g., SQL (PostgreSQL, MySQL)]</li>
+                                <li>[Specific technology - e.g., Tableau]</li>
+                                <li>[Specific technology - e.g., AWS (S3, EC2)]</li>
+                            </ul>
+                        </div>
+                        <div class="competency-group">
+                            <h4>[Skill Category 4 - e.g., "Project Management"]</h4>
+                           <ul>
+                               <li>[Specific skill or tool - e.g., Agile & Scrum Methodologies]</li>
+                               <li>[Specific skill or tool - e.g., JIRA & Confluence]</li>
+                               <li>[Specific skill or tool - e.g., Budgeting & Forecasting]</li>
+                               <li>[Specific skill or tool - e.g., Risk Management]</li>
+                           </ul>
+                       </div>
+                    </div>
+                </section>
+                <section class="section" data-aos="fade-up">
+                    <h2 class="section-title education">Education</h2>
+                    <div class="education-grid">
+                        <!-- EDUCATION ITEM 1: Copy this 'education-item' div for each degree/certification. -->
+                        <div class="education-item">
+                            <!-- CHANGE THIS: Your degree and GPA (optional) -->
+                            <div class="degree">[Degree Name, e.g., B.S. in Computer Science]<span class="gpa">[GPA or Honors - optional]</span></div>
+                            <!-- CHANGE THIS: School name and location -->
+                            <div class="school">[University/College Name] | [City, State]</div>
+                        </div>
+
+                        <!-- EDUCATION ITEM 2: Example for a certification. Replace or remove. -->
+                        <div class="education-item">
+                            <div class="degree">[Certification Name, e.g., Certified Project Manager (PMP)]</div>
+                            <div class="school">[Certifying Institution] | [Year or Expiration]</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="section" data-aos="fade-up" id="skills-section">
+                    <h2 class="section-title technical">Technical Expertise</h2>
+                    <div class="tech-grid">
+                        <!-- SKILL CATEGORY 1: Copy this 'tech-category' div for each skill category. -->
+                        <div class="tech-category">
+                            <!-- CHANGE THIS: Category name -->
+                            <h4>[Skill Category - e.g., "Programming Languages"]</h4>
+                            <!-- SKILL 1: Copy this 'skill' div for each individual skill. -->
+                            <div class="skill">
+                                <!-- CHANGE THIS: Skill name -->
+                                <span class="skill-name">[Specific Skill/Tool Name - e.g., JavaScript]</span>
+                                <!-- CHANGE THIS: Skill level (e.g., 90%). This determines the bar width. -->
+                                <div class="skill-bar"><div class="skill-level" data-level="90%"></div></div>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-name">[Specific Skill/Tool Name - e.g., Python]</span>
+                                <div class="skill-bar"><div class="skill-level" data-level="75%"></div></div>
+                            </div>
+                        </div>
+
+                        <!-- SKILL CATEGORY 2: Example category. Replace or remove. -->
+                        <div class="tech-category">
+                            <h4>[Skill Category - e.g., "Databases"]</h4>
+                            <div class="skill">
+                                <span class="skill-name">[Skill Name - e.g., MySQL]</span>
+                                <div class="skill-bar"><div class="skill-level" data-level="85%"></div></div>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-name">[Skill Name - e.g., MongoDB]</span>
+                                <div class="skill-bar"><div class="skill-level" data-level="65%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+
         <!-- OPTIONAL SECTION: PROJECTS. Uncomment to use. Ideal for developers, designers, and creatives. -->
         <!--
-        <section class="section" data-aos="fade-up">
+        <section class="section" id="projects-section" data-aos="fade-up">
             <h2 class="section-title projects">Key Projects</h2>
             <div class="project-grid">
                 <div class="project-item">
@@ -686,7 +836,7 @@
 
         <!-- OPTIONAL SECTION: MILITARY SERVICE. Uncomment to use. -->
         <!--
-        <section class="section page-break" data-aos="fade-up">
+        <section class="section page-break" id="military-section" data-aos="fade-up">
             <h2 class="section-title military">Military Service</h2>
             <div class="experience-item">
                 <div class="company-header">
@@ -706,63 +856,9 @@
         </section>
         -->
         
-        <section class="section" data-aos="fade-up">
-            <h2 class="section-title education">Education</h2>
-            <div class="education-grid">
-                <!-- EDUCATION ITEM 1: Copy this 'education-item' div for each degree/certification. -->
-                <div class="education-item">
-                    <!-- CHANGE THIS: Your degree and GPA (optional) -->
-                    <div class="degree">[Degree Name, e.g., B.S. in Computer Science]<span class="gpa">[GPA or Honors - optional]</span></div>
-                    <!-- CHANGE THIS: School name and location -->
-                    <div class="school">[University/College Name] | [City, State]</div>
-                </div>
-                
-                <!-- EDUCATION ITEM 2: Example for a certification. Replace or remove. -->
-                <div class="education-item">
-                    <div class="degree">[Certification Name, e.g., Certified Project Manager (PMP)]</div>
-                    <div class="school">[Certifying Institution] | [Year or Expiration]</div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="section" data-aos="fade-up" id="skills-section">
-            <h2 class="section-title technical">Technical Expertise</h2>
-            <div class="tech-grid">
-                <!-- SKILL CATEGORY 1: Copy this 'tech-category' div for each skill category. -->
-                <div class="tech-category">
-                    <!-- CHANGE THIS: Category name -->
-                    <h4>[Skill Category - e.g., "Programming Languages"]</h4>
-                    <!-- SKILL 1: Copy this 'skill' div for each individual skill. -->
-                    <div class="skill">
-                        <!-- CHANGE THIS: Skill name -->
-                        <span class="skill-name">[Specific Skill/Tool Name - e.g., JavaScript]</span>
-                        <!-- CHANGE THIS: Skill level (e.g., 90%). This determines the bar width. -->
-                        <div class="skill-bar"><div class="skill-level" data-level="90%"></div></div>
-                    </div>
-                    <div class="skill">
-                        <span class="skill-name">[Specific Skill/Tool Name - e.g., Python]</span>
-                        <div class="skill-bar"><div class="skill-level" data-level="75%"></div></div>
-                    </div>
-                </div>
-                
-                <!-- SKILL CATEGORY 2: Example category. Replace or remove. -->
-                <div class="tech-category">
-                    <h4>[Skill Category - e.g., "Databases"]</h4>
-                    <div class="skill">
-                        <span class="skill-name">[Skill Name - e.g., MySQL]</span>
-                        <div class="skill-bar"><div class="skill-level" data-level="85%"></div></div>
-                    </div>
-                    <div class="skill">
-                        <span class="skill-name">[Skill Name - e.g., MongoDB]</span>
-                        <div class="skill-bar"><div class="skill-level" data-level="65%"></div></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
         <!-- OPTIONAL SECTION: HONORS & AWARDS. Uncomment to use. -->
         <!--
-        <section class="section" data-aos="fade-up">
+        <section class="section" id="awards-section" data-aos="fade-up">
             <h2 class="section-title awards">Honors & Awards</h2>
             <div class="awards-grid">
                 <div class="award-category">
@@ -784,7 +880,7 @@
 
         <!-- OPTIONAL SECTION: PUBLICATIONS. Uncomment to use. Ideal for academics and researchers. -->
         <!--
-        <section class="section list-section" data-aos="fade-up">
+        <section class="section list-section" id="publications-section" data-aos="fade-up">
             <h2 class="section-title publications">Publications</h2>
             <ul>
                 <li>
@@ -799,7 +895,7 @@
 
         <!-- OPTIONAL SECTION: LANGUAGES. Uncomment to use. -->
         <!--
-        <section class="section list-section" data-aos="fade-up">
+        <section class="section list-section" id="languages-section" data-aos="fade-up">
             <h2 class="section-title languages">Languages</h2>
             <ul>
                 <li>[Language] - [Proficiency Level, e.g., Native, Fluent, Professional Working Proficiency]</li>
@@ -807,6 +903,30 @@
             </ul>
         </section>
         -->
+    </div>
+
+    <div id="settings-panel">
+        <h3>Customize Sections</h3>
+        <div class="setting-item">
+            <label for="toggle-projects">Projects</label>
+            <input type="checkbox" id="toggle-projects" class="section-toggle" data-section="projects-section">
+        </div>
+        <div class="setting-item">
+            <label for="toggle-military">Military Service</label>
+            <input type="checkbox" id="toggle-military" class="section-toggle" data-section="military-section">
+        </div>
+        <div class="setting-item">
+            <label for="toggle-awards">Honors & Awards</label>
+            <input type="checkbox" id="toggle-awards" class="section-toggle" data-section="awards-section">
+        </div>
+        <div class="setting-item">
+            <label for="toggle-publications">Publications</label>
+            <input type="checkbox" id="toggle-publications" class="section-toggle" data-section="publications-section">
+        </div>
+        <div class="setting-item">
+            <label for="toggle-languages">Languages</label>
+            <input type="checkbox" id="toggle-languages" class="section-toggle" data-section="languages-section">
+        </div>
     </div>
 
     <!-- JAVASCRIPT LIBRARIES -->
@@ -945,6 +1065,122 @@
             });
         };
         initThemeSwitcher();
+
+        // --- LAYOUT SWITCHER ---
+        const initLayoutSwitcher = () => {
+            const layoutToggleButton = document.getElementById('layout-toggle-btn');
+            const resumeContainer = document.getElementById('resume-to-print');
+
+            const savedLayout = localStorage.getItem('resume-layout');
+            if (savedLayout) {
+                resumeContainer.classList.add(savedLayout);
+            }
+
+            layoutToggleButton.addEventListener('click', () => {
+                resumeContainer.classList.toggle('two-column');
+                const newLayout = resumeContainer.classList.contains('two-column') ? 'two-column' : 'one-column';
+                localStorage.setItem('resume-layout', newLayout);
+            });
+        };
+        initLayoutSwitcher();
+
+        // --- DARK MODE SWITCHER ---
+        const initDarkModeSwitcher = () => {
+            const darkModeToggleButton = document.getElementById('dark-mode-toggle-btn');
+
+            const savedDarkMode = localStorage.getItem('resume-dark-mode');
+            if (savedDarkMode === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+
+            darkModeToggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('resume-dark-mode', isDarkMode);
+            });
+        };
+        initDarkModeSwitcher();
+
+        // --- FONT SWITCHER ---
+        const initFontSwitcher = () => {
+            const fontToggleButton = document.getElementById('font-toggle-btn');
+            const fontPalette = document.getElementById('font-palette');
+            const fontOptions = document.querySelectorAll('.font-option');
+            const root = document.documentElement;
+
+            const savedFont = localStorage.getItem('resume-font');
+            if (savedFont) {
+                root.style.setProperty('--body-font', savedFont);
+            }
+
+            fontToggleButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                fontPalette.classList.toggle('active');
+            });
+
+            fontOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const newFont = option.getAttribute('data-font');
+                    root.style.setProperty('--body-font', newFont);
+                    localStorage.setItem('resume-font', newFont);
+                    fontPalette.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!fontPalette.contains(e.target) && e.target !== fontToggleButton) {
+                    fontPalette.classList.remove('active');
+                }
+            });
+        };
+        initFontSwitcher();
+
+        // --- SECTION TOGGLER ---
+        const initSectionToggler = () => {
+            const settingsToggleButton = document.getElementById('settings-toggle-btn');
+            const settingsPanel = document.getElementById('settings-panel');
+            const sectionToggles = document.querySelectorAll('.section-toggle');
+
+            settingsToggleButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                settingsPanel.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!settingsPanel.contains(e.target) && e.target !== settingsToggleButton) {
+                    settingsPanel.classList.remove('active');
+                }
+            });
+
+            sectionToggles.forEach(toggle => {
+                const sectionId = toggle.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+
+                if(section) {
+                    // Load saved state
+                    const savedState = localStorage.getItem(`section-${sectionId}-visible`);
+                    if (savedState === 'false') {
+                        section.parentElement.classList.add('section-hidden');
+                        toggle.checked = false;
+                    } else {
+                        section.parentElement.classList.remove('section-hidden');
+                        toggle.checked = true;
+                    }
+
+
+                    toggle.addEventListener('change', () => {
+                        if (toggle.checked) {
+                            section.parentElement.classList.remove('section-hidden');
+                            localStorage.setItem(`section-${sectionId}-visible`, 'true');
+                        } else {
+                            section.parentElement.classList.add('section-hidden');
+                            localStorage.setItem(`section-${sectionId}-visible`, 'false');
+                        }
+                    });
+                }
+            });
+        };
+        initSectionToggler();
     </script>
 </body>
 </html>
